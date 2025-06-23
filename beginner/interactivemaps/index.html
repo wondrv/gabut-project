@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Interactive Maps</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-content">
+      <i class="fas fa-map-marked-alt loading-icon"></i>
+      <h2>Advanced Maps</h2>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+      <p>Loading your advanced mapping experience...</p>
+    </div>
+  </div>
+
+  <!-- Main Application -->
+  <div id="app" class="app-container hidden">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">
+          <i class="fas fa-globe-americas"></i>
+          <span>Advanced Maps</span>
+        </div>
+        <div class="search-container">
+          <input type="text" id="searchInput" placeholder="Search for places, addresses..." />
+          <button id="searchBtn" class="search-btn" title="Search">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <button id="myLocationBtn" class="icon-btn" title="My Location">
+          <i class="fas fa-location-crosshairs"></i>
+        </button>
+        <button id="layersBtn" class="icon-btn" title="Map Layers">
+          <i class="fas fa-layer-group"></i>
+        </button>
+        <button id="drawingBtn" class="icon-btn" title="Drawing Tools">
+          <i class="fas fa-pencil-alt"></i>
+        </button>
+        <button id="shareBtn" class="icon-btn" title="Share">
+          <i class="fas fa-share-alt"></i>
+        </button>
+        <button id="settingsBtn" class="icon-btn" title="Settings">
+          <i class="fas fa-cog"></i>
+        </button>
+        <button id="themeToggle" class="icon-btn" title="Toggle Theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Map Container -->
+      <div id="map" class="map-container"></div>
+      
+      <!-- Side Panel -->
+      <div id="sidePanel" class="side-panel">
+        <div class="panel-header">
+          <h3 id="panelTitle">Navigation</h3>
+          <button id="closePanelBtn" class="close-btn" title="Close Panel">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div id="panelContent" class="panel-content">
+          <!-- Default Navigation Panel -->
+          <div id="navigationPanel" class="panel-section active">
+            <div class="route-input-group">
+              <div class="input-wrapper">
+                <i class="fas fa-circle origin-icon"></i>
+                <input type="text" id="fromInput" placeholder="Choose starting point" />
+                <button class="location-btn" data-target="from" title="Use current location as starting point">
+                  <i class="fas fa-crosshairs"></i>
+                </button>
+              </div>
+              <div class="input-wrapper">
+                <i class="fas fa-map-marker-alt destination-icon"></i>
+                <input type="text" id="toInput" placeholder="Choose destination" />
+                <button class="location-btn" data-target="to" title="Use current location as destination">
+                  <i class="fas fa-crosshairs"></i>
+                </button>
+              </div>
+            </div>
+            <div class="route-options">
+              <label class="route-option">
+                <input type="radio" name="routeType" value="driving" checked />
+                <i class="fas fa-car"></i>
+                <span>Driving</span>
+              </label>
+              <label class="route-option">
+                <input type="radio" name="routeType" value="walking" />
+                <i class="fas fa-walking"></i>
+                <span>Walking</span>
+              </label>
+              <label class="route-option">
+                <input type="radio" name="routeType" value="cycling" />
+                <i class="fas fa-bicycle"></i>
+                <span>Cycling</span>
+              </label>
+            </div>
+            <button id="routeBtn" class="primary-btn">
+              <i class="fas fa-route"></i>
+              Get Directions
+            </button>
+            <button id="clearRouteBtn" class="secondary-btn hidden">
+              <i class="fas fa-times"></i>
+              Clear Route
+            </button>
+            <div id="routeInfo" class="route-info hidden"></div>
+          </div>
+
+          <!-- Layers Panel -->
+          <div id="layersPanel" class="panel-section">
+            <div class="layer-group">
+              <h4>Map Styles</h4>
+              <div class="layer-options">
+                <label class="layer-option">
+                  <input type="radio" name="mapStyle" value="streets" checked />
+                  <span>Streets</span>
+                </label>
+                <label class="layer-option">
+                  <input type="radio" name="mapStyle" value="satellite" />
+                  <span>Satellite</span>
+                </label>
+                <label class="layer-option">
+                  <input type="radio" name="mapStyle" value="terrain" />
+                  <span>Terrain</span>
+                </label>
+                <label class="layer-option">
+                  <input type="radio" name="mapStyle" value="dark" />
+                  <span>Dark</span>
+                </label>
+              </div>
+            </div>
+            <div class="layer-group">
+              <h4>Overlays</h4>
+              <div class="layer-options">
+                <label class="layer-option">
+                  <input type="checkbox" id="trafficOverlay" />
+                  <span>Traffic</span>
+                </label>
+                <label class="layer-option">
+                  <input type="checkbox" id="weatherOverlay" />
+                  <span>Weather</span>
+                </label>
+                <label class="layer-option">
+                  <input type="checkbox" id="transitOverlay" />
+                  <span>Transit</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Drawing Panel -->
+          <div id="drawingPanel" class="panel-section">
+            <div class="drawing-tools">
+              <button class="tool-btn" data-tool="marker">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Marker</span>
+              </button>
+              <button class="tool-btn" data-tool="line">
+                <i class="fas fa-minus"></i>
+                <span>Line</span>
+              </button>
+              <button class="tool-btn" data-tool="polygon">
+                <i class="fas fa-draw-polygon"></i>
+                <span>Polygon</span>
+              </button>
+              <button class="tool-btn" data-tool="circle">
+                <i class="fas fa-circle"></i>
+                <span>Circle</span>
+              </button>
+              <button class="tool-btn" data-tool="rectangle">
+                <i class="fas fa-square"></i>
+                <span>Rectangle</span>
+              </button>
+            </div>
+            <div class="drawing-actions">
+              <button id="saveDrawingBtn" class="primary-btn">
+                <i class="fas fa-save"></i>
+                Save Drawing
+              </button>
+              <button id="clearDrawingBtn" class="danger-btn">
+                <i class="fas fa-trash"></i>
+                Clear All
+              </button>
+            </div>
+            <div id="savedDrawings" class="saved-drawings">
+              <h4>Saved Drawings</h4>
+              <div id="drawingsList" class="drawings-list"></div>
+            </div>
+          </div>
+
+          <!-- Places Panel -->
+          <div id="placesPanel" class="panel-section">
+            <div class="places-search">
+              <input type="text" id="placesSearch" placeholder="Search for places..." />
+              <button id="placesSearchBtn" title="Search Places">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <div id="placesList" class="places-list"></div>
+            <div id="savedPlaces" class="saved-places">
+              <h4>Saved Places</h4>
+              <div id="savedPlacesList" class="saved-places-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <button id="navigationToggle" class="quick-btn active" title="Navigation">
+          <i class="fas fa-route"></i>
+        </button>
+        <button id="placesToggle" class="quick-btn" title="Places">
+          <i class="fas fa-map-marked-alt"></i>
+        </button>
+        <button id="measureBtn" class="quick-btn" title="Measure Distance">
+          <i class="fas fa-ruler"></i>
+        </button>
+        <button id="fullscreenBtn" class="quick-btn" title="Fullscreen">
+          <i class="fas fa-expand"></i>
+        </button>
+      </div>
+
+      <!-- Current Location Info -->
+      <div id="locationInfo" class="location-info">
+        <div class="location-details">
+          <h4 id="locationName">Loading...</h4>
+          <p id="locationAddress"></p>
+          <div class="location-coords">
+            <span id="locationLat"></span>, <span id="locationLng"></span>
+          </div>
+        </div>
+        <div class="location-actions">
+          <button id="saveLocationBtn" class="save-btn">
+            <i class="fas fa-bookmark"></i>
+            Save
+          </button>
+          <button id="shareLocationBtn" class="share-btn">
+            <i class="fas fa-share"></i>
+            Share
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Share Modal -->
+    <div id="shareModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Share Location</h3>
+          <button class="modal-close" title="Close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="share-option">
+            <label>Share Link:</label>
+            <div class="share-input">
+              <input type="text" id="shareUrl" readonly title="Shareable URL link" />
+              <button id="copyUrlBtn" title="Copy URL to clipboard">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="share-buttons">
+            <button class="share-btn-social" data-platform="twitter">
+              <i class="fab fa-twitter"></i>
+              Twitter
+            </button>
+            <button class="share-btn-social" data-platform="facebook">
+              <i class="fab fa-facebook"></i>
+              Facebook
+            </button>
+            <button class="share-btn-social" data-platform="whatsapp">
+              <i class="fab fa-whatsapp"></i>
+              WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Settings</h3>
+          <button class="modal-close" title="Close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="setting-group">
+            <h4>Map Preferences</h4>
+            <label class="setting-item">
+              <input type="checkbox" id="autoLocation" checked />
+              <span>Auto-detect location on startup</span>
+            </label>
+            <label class="setting-item">
+              <input type="checkbox" id="saveHistory" checked />
+              <span>Save search history</span>
+            </label>
+            <label class="setting-item">
+              <input type="checkbox" id="showTraffic" />
+              <span>Show traffic by default</span>
+            </label>
+          </div>
+          <div class="setting-group">
+            <h4>Units</h4>
+            <label class="setting-item">
+              <input type="radio" name="units" value="metric" checked />
+              <span>Metric (km, m)</span>
+            </label>
+            <label class="setting-item">
+              <input type="radio" name="units" value="imperial" />
+              <span>Imperial (mi, ft)</span>
+            </label>
+          </div>
+          <div class="setting-group">
+            <h4>Data</h4>
+            <button id="clearDataBtn" class="danger-btn">
+              <i class="fas fa-trash"></i>
+              Clear All Data
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

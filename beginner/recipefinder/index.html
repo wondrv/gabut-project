@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Recipe Finder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <div class="loading-content">
+      <i class="fas fa-utensils loading-icon"></i>
+      <h2>Advanced Recipe Finder</h2>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+      <p>Loading delicious recipes...</p>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app" class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">
+          <i class="fas fa-utensils"></i>
+          <span>Recipe Finder</span>
+        </div>
+        <nav class="nav-menu">
+          <button class="nav-btn active" data-section="search">
+            <i class="fas fa-search"></i>
+            Search
+          </button>
+          <button class="nav-btn" data-section="favorites">
+            <i class="fas fa-heart"></i>
+            Favorites
+          </button>
+          <button class="nav-btn" data-section="meal-plan">
+            <i class="fas fa-calendar-alt"></i>
+            Meal Plan
+          </button>
+          <button class="nav-btn" data-section="grocery">
+            <i class="fas fa-shopping-cart"></i>
+            Grocery List
+          </button>
+        </nav>
+      </div>
+      <div class="header-right">
+        <div class="user-info">
+          <i class="fas fa-user-circle"></i>
+          <span>wondrv</span>
+        </div>
+        <button id="themeToggle" class="theme-btn" title="Toggle dark/light theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Search Section -->
+      <section id="search" class="content-section active">
+        <div class="search-container">
+          <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for recipes (e.g., chicken pasta, vegan soup)...">
+            <button id="searchBtn" class="search-btn" title="Search for recipes">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          
+          <!-- Advanced Filters -->
+          <div class="filters-container">
+            <button id="filtersToggle" class="filters-toggle">
+              <i class="fas fa-filter"></i>
+              Advanced Filters
+            </button>
+            
+            <div id="filtersPanel" class="filters-panel">
+              <div class="filter-group">
+                <label>Cuisine Type</label>
+                <select id="cuisineFilter" title="Select cuisine type">
+                  <option value="">Any Cuisine</option>
+                  <option value="italian">Italian</option>
+                  <option value="chinese">Chinese</option>
+                  <option value="mexican">Mexican</option>
+                  <option value="indian">Indian</option>
+                  <option value="french">French</option>
+                  <option value="japanese">Japanese</option>
+                  <option value="american">American</option>
+                  <option value="mediterranean">Mediterranean</option>
+                </select>
+              </div>
+              
+              <div class="filter-group">
+                <label>Diet Type</label>
+                <select id="dietFilter" title="Select diet type">
+                  <option value="">Any Diet</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="gluten-free">Gluten Free</option>
+                  <option value="keto">Keto</option>
+                  <option value="paleo">Paleo</option>
+                  <option value="low-carb">Low Carb</option>
+                </select>
+              </div>
+              
+              <div class="filter-group">
+                <label>Meal Type</label>
+                <select id="mealFilter" title="Select meal type">
+                  <option value="">Any Meal</option>
+                  <option value="breakfast">Breakfast</option>
+                  <option value="lunch">Lunch</option>
+                  <option value="dinner">Dinner</option>
+                  <option value="snack">Snack</option>
+                  <option value="dessert">Dessert</option>
+                </select>
+              </div>
+              
+              <div class="filter-group">
+                <label>Cooking Time</label>
+                <select id="timeFilter" title="Select cooking time">
+                  <option value="">Any Time</option>
+                  <option value="15">Under 15 min</option>
+                  <option value="30">Under 30 min</option>
+                  <option value="60">Under 1 hour</option>
+                  <option value="120">Under 2 hours</option>
+                </select>
+              </div>
+              
+              <div class="filter-group">
+                <label>Difficulty</label>
+                <select id="difficultyFilter" title="Select difficulty level">
+                  <option value="">Any Level</option>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </div>
+              
+              <button id="clearFilters" class="clear-filters-btn">
+                <i class="fas fa-times"></i>
+                Clear Filters
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Categories -->
+        <div class="quick-categories">
+          <h3>Popular Categories</h3>
+          <div class="categories-grid">
+            <button class="category-card" data-category="pasta">
+              <i class="fas fa-utensils"></i>
+              <span>Pasta</span>
+            </button>
+            <button class="category-card" data-category="chicken">
+              <i class="fas fa-drumstick-bite"></i>
+              <span>Chicken</span>
+            </button>
+            <button class="category-card" data-category="vegetarian">
+              <i class="fas fa-leaf"></i>
+              <span>Vegetarian</span>
+            </button>
+            <button class="category-card" data-category="dessert">
+              <i class="fas fa-birthday-cake"></i>
+              <span>Desserts</span>
+            </button>
+            <button class="category-card" data-category="soup">
+              <i class="fas fa-bowl-hot"></i>
+              <span>Soups</span>
+            </button>
+            <button class="category-card" data-category="salad">
+              <i class="fas fa-seedling"></i>
+              <span>Salads</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search Results -->
+        <div id="searchResults" class="search-results">
+          <div class="results-header hidden">
+            <h3 id="resultsCount">Found 0 recipes</h3>
+            <div class="sort-options">
+              <label>Sort by:</label>
+              <select id="sortBy" title="Sort recipes by different criteria">
+                <option value="relevance">Relevance</option>
+                <option value="time">Cooking Time</option>
+                <option value="rating">Rating</option>
+                <option value="popularity">Popularity</option>
+              </select>
+            </div>
+          </div>
+          <div id="recipeGrid" class="recipe-grid"></div>
+          <div id="loadMoreBtn" class="load-more-container">
+            <button class="load-more-btn">Load More Recipes</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Favorites Section -->
+      <section id="favorites" class="content-section">
+        <div class="section-header">
+          <h2>Your Favorite Recipes</h2>
+          <div class="header-actions">
+            <button id="clearFavorites" class="clear-btn">
+              <i class="fas fa-trash"></i>
+              Clear All
+            </button>
+          </div>
+        </div>
+        <div id="favoritesGrid" class="recipe-grid"></div>
+        <div id="noFavorites" class="empty-state">
+          <i class="fas fa-heart"></i>
+          <h3>No Favorite Recipes Yet</h3>
+          <p>Start searching and save your favorite recipes!</p>
+        </div>
+      </section>
+
+      <!-- Meal Plan Section -->
+      <section id="meal-plan" class="content-section">
+        <div class="section-header">
+          <h2>Weekly Meal Plan</h2>
+          <div class="header-actions">
+            <button id="generateMealPlan" class="generate-btn">
+              <i class="fas fa-magic"></i>
+              Auto Generate
+            </button>
+            <button id="clearMealPlan" class="clear-btn">
+              <i class="fas fa-trash"></i>
+              Clear Plan
+            </button>
+          </div>
+        </div>
+        
+        <div class="meal-plan-grid">
+          <div class="day-column" data-day="monday">
+            <h3>Monday</h3>
+            <div class="meal-slot" data-meal="breakfast">
+              <div class="meal-label">Breakfast</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="lunch">
+              <div class="meal-label">Lunch</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="dinner">
+              <div class="meal-label">Dinner</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+          </div>
+          
+          <div class="day-column" data-day="tuesday">
+            <h3>Tuesday</h3>
+            <div class="meal-slot" data-meal="breakfast">
+              <div class="meal-label">Breakfast</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="lunch">
+              <div class="meal-label">Lunch</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="dinner">
+              <div class="meal-label">Dinner</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+          </div>
+          
+          <div class="day-column" data-day="wednesday">
+            <h3>Wednesday</h3>
+            <div class="meal-slot" data-meal="breakfast">
+              <div class="meal-label">Breakfast</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="lunch">
+              <div class="meal-label">Lunch</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="dinner">
+              <div class="meal-label">Dinner</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+          </div>
+          
+          <div class="day-column" data-day="thursday">
+            <h3>Thursday</h3>
+            <div class="meal-slot" data-meal="breakfast">
+              <div class="meal-label">Breakfast</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="lunch">
+              <div class="meal-label">Lunch</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="dinner">
+              <div class="meal-label">Dinner</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+          </div>
+          
+          <div class="day-column" data-day="friday">
+            <h3>Friday</h3>
+            <div class="meal-slot" data-meal="breakfast">
+              <div class="meal-label">Breakfast</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="lunch">
+              <div class="meal-label">Lunch</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="dinner">
+              <div class="meal-label">Dinner</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+          </div>
+          
+          <div class="day-column" data-day="saturday">
+            <h3>Saturday</h3>
+            <div class="meal-slot" data-meal="breakfast">
+              <div class="meal-label">Breakfast</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="lunch">
+              <div class="meal-label">Lunch</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="dinner">
+              <div class="meal-label">Dinner</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+          </div>
+          
+          <div class="day-column" data-day="sunday">
+            <h3>Sunday</h3>
+            <div class="meal-slot" data-meal="breakfast">
+              <div class="meal-label">Breakfast</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="lunch">
+              <div class="meal-label">Lunch</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+            <div class="meal-slot" data-meal="dinner">
+              <div class="meal-label">Dinner</div>
+              <div class="meal-content">Drop recipe here</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Grocery List Section -->
+      <section id="grocery" class="content-section">
+        <div class="section-header">
+          <h2>Grocery List</h2>
+          <div class="header-actions">
+            <button id="generateGroceryList" class="generate-btn">
+              <i class="fas fa-magic"></i>
+              From Meal Plan
+            </button>
+            <button id="clearGroceryList" class="clear-btn">
+              <i class="fas fa-trash"></i>
+              Clear List
+            </button>
+          </div>
+        </div>
+        
+        <div class="grocery-container">
+          <div class="add-item-form">
+            <input type="text" id="newGroceryItem" placeholder="Add new item...">
+            <button id="addGroceryItem" class="add-btn">
+              <i class="fas fa-plus"></i>
+              Add
+            </button>
+          </div>
+          
+          <div class="grocery-list">
+            <div id="groceryItems" class="grocery-items"></div>
+            <div id="noGroceryItems" class="empty-state">
+              <i class="fas fa-shopping-cart"></i>
+              <h3>Your Grocery List is Empty</h3>
+              <p>Add items manually or generate from your meal plan!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Recipe Modal -->
+    <div id="recipeModal" class="modal">
+      <div class="modal-content">
+        <button class="modal-close" title="Close recipe details">
+          <i class="fas fa-times"></i>
+        </button>
+        <div id="recipeDetails" class="recipe-details"></div>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+      <i class="fas fa-check-circle"></i>
+      <span id="notificationText"></span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

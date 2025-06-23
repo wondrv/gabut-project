@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Interactive Quiz</h1>
+            <p>Test your knowledge with our fun quiz!</p>
+        </header>
+
+        <div id="quiz-container">
+            <!-- Start Screen -->
+            <div id="start-screen" class="screen active">
+                <h2>Welcome to the Quiz!</h2>
+                <p>This quiz contains 5 questions about general knowledge.</p>
+                <p>You'll have 30 seconds for each question.</p>
+                <button id="start-btn" class="btn btn-primary">Start Quiz</button>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quiz-screen" class="screen">
+                <div class="quiz-header">
+                    <div class="progress-bar">
+                        <div id="progress" class="progress-fill"></div>
+                    </div>
+                    <div class="quiz-info">
+                        <span id="question-counter">Question 1 of 5</span>
+                        <span id="timer">30s</span>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <h2 id="question-text">Question will appear here</h2>
+                    <div id="options-container" class="options">
+                        <!-- Options will be dynamically added here -->
+                    </div>
+                </div>
+
+                <button id="next-btn" class="btn btn-primary">Next Question</button>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="results-screen" class="screen">
+                <h2>Quiz Complete!</h2>
+                <div class="results-container">
+                    <div class="score-circle">
+                        <span id="final-score">0/5</span>
+                    </div>
+                    <p id="score-message">Great job!</p>
+                    <div class="results-breakdown">
+                        <h3>Results Breakdown:</h3>
+                        <div id="results-list"></div>
+                    </div>
+                    <button id="restart-btn" class="btn btn-primary">Take Quiz Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

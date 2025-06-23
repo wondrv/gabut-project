@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Fancy Animated Navbar</title>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">FancyWeb</div>
+    <button class="hamburger" id="hamburger">
+      ☰
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle">Services</a>
+        <ul class="dropdown-menu">
+          <li><a href="#design">Design</a></li>
+          <li><a href="#development">Development</a></li>
+          <li><a href="#marketing">Marketing</a></li>
+        </ul>
+      </li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+  <section id="home"><h1>Welcome to FancyWeb</h1></section>
+  <section id="about"><h1>About Us</h1></section>
+  <section id="design"><h1>Our Design Services</h1></section>
+  <section id="development"><h1>Our Development Services</h1></section>
+  <section id="marketing"><h1>Our Marketing Strategies</h1></section>
+  <section id="contact"><h1>Contact Us</h1></section>
+  <script src="script.js"></script>
+</body>
+</html>

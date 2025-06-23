@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Post</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Welcome to My Blog</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <main>
+    <div class="container post-page">
+      <section class="blog-post">
+        <h2>Blog Post Title 1</h2>
+        <p class="post-date">Published on: <span>December 17, 2024</span></p>
+        <div class="author-info">
+          <img src="author.jpg" alt="Author's photo" class="author-photo">
+          <span class="author-name">John Doe</span>
+        </div>
+        <div class="post-content">
+          <p>This is the full content of the blog post. Here you can elaborate on your thoughts, ideas, or share stories.</p>
+        </div>
+
+        <div class="social-share">
+          <button class="facebook-share">Share on Facebook</button>
+          <button class="twitter-share">Share on Twitter</button>
+        </div>
+        
+        <section class="comments">
+          <h3>Comments</h3>
+          <div id="comments-list">
+            <!-- Comments will be displayed here -->
+          </div>
+          <textarea id="comment-input" placeholder="Add a comment..."></textarea>
+          <button onclick="addComment()">Submit Comment</button>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 My Blog. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

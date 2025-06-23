@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Website</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>My Blog</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="blog-posts">
+    <!-- Blog posts will be dynamically generated here -->
+  </div>
+
+  <!-- Comment section -->
+  <section class="comments-section">
+    <h2>Comments</h2>
+    <textarea id="comment-input" placeholder="Write a comment..."></textarea>
+    <button onclick="addComment()">Post Comment</button>
+    <div id="comments-list"></div>
+  </section>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button class="prev-btn" onclick="changePage(-1)">Previous</button>
+    <button class="next-btn" onclick="changePage(1)">Next</button>
+  </div>
+
+  <!-- Scroll to Top button -->
+  <button id="scrollToTopBtn" onclick="scrollToTop()">↑</button>
+
+  <!-- Post Image Upload -->
+  <label for="image-upload">Upload Post Image:</label>
+  <input type="file" id="image-upload" accept="image/*" title="Upload an image for your post">
+  <script src="scripts.js"></script>
+</body>
+</html>

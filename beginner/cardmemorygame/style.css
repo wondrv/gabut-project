@@ -1,0 +1,50 @@
+/* Custom styles for the Memory Game */
+
+/* Sets the body font and a dark background color */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1a202c; /* A dark, cool gray */
+}
+
+/* * Sets up the grid layout for the game board and the 3D perspective 
+ * needed for the card flip animation.
+ */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    perspective: 1000px; /* For the 3D flip effect */
+}
+
+/* * Defines the basic properties for a card, including the 3D transform style
+ * and the transition for the flip animation.
+ */
+.card {
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    cursor: pointer;
+}
+
+/* This class is added by JavaScript to trigger the card flip */
+.card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+/* * Defines properties for the faces of the card (front and back).
+ * 'backface-visibility: hidden' is crucial; it hides the face of the card 
+ * that is turned away from the viewer.
+ */
+.card-face {
+    -webkit-backface-visibility: hidden; /* For Safari compatibility */
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* The back face of the card is initially rotated 180 degrees */
+.card-face.card-back {
+    transform: rotateY(180deg);
+}
